@@ -79,8 +79,8 @@ stringData:
   JWT_SECRET: '{{ JWT_SECRET }}'
   COQUI_TTS_URL: '{{ COQUI_TTS_URL }}'
   OPENAI_TOKEN: '{{ OPENAI_TOKEN }}'
-  H2_CONSOLE_ENABLE: false
-  # ADMIN_CLIENT_ENABLE: false
+  H2_CONSOLE_ENABLE: 'false'
+  ADMIN_CLIENT_ENABLE: 'false'
   # ADMIN_CLIENT_URL: 'http://localhost:8080'
   DATABASE_TYPE: mysql  # h2 or h2-memory or mysql
   OBJECT_STORAGE_TYPE: s3-minio #db or s3-minio or smb
