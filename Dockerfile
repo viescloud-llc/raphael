@@ -15,7 +15,7 @@ RUN mvn clean install -DskipTests
 RUN mv /build/target/*.jar /build/target/app.jar
 
 # Runtime stage
-FROM openjdk:19
+FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 
 EXPOSE 8080
