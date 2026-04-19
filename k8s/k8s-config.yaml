@@ -75,28 +75,27 @@ metadata:
     app: raphael
 type: Opaque
 stringData:
-  SERVER_PORT: 10001
+  SERVER_PORT: '10001'
   JWT_SECRET: '{{ JWT_SECRET }}'
   COQUI_TTS_URL: '{{ COQUI_TTS_URL }}'
   OPENAI_TOKEN: '{{ OPENAI_TOKEN }}'
-  H2_CONSOLE_ENABLE: 'false'
   ADMIN_CLIENT_ENABLE: 'false'
   # ADMIN_CLIENT_URL: 'http://localhost:8080'
-  DATABASE_TYPE: mysql  # h2 or h2-memory or mysql
-  OBJECT_STORAGE_TYPE: s3-minio #db or s3-minio or smb
+  DATABASE_TYPE: 'mysql'  # h2 or h2-memory or mysql
+  OBJECT_STORAGE_TYPE: 's3-minio' #db or s3-minio or smb
   # -----------------------------------H2 specific configuration-----------------------------------
   # H2_DB: '/etc/${spring.application.name}/db/h2'
   # H2_USERNAME: 'sa'
   # H2_PASSWORD: 'password'
-  # H2_CONSOLE_ENABLE: true
+  # H2_CONSOLE_ENABLE: 'true'
   # H2_CONSOLE_PATH: '/h2-console'
   # -----------------------------------MySQL specific configuration-----------------------------------
   MYSQL_HOST: '{{ MYSQL_IPV4 }}'
-  MYSQL_PORT: {{ MYSQL_PORT }}
+  MYSQL_PORT: '{{ MYSQL_PORT }}'
   MYSQL_DB: 'Raphael'
   MYSQL_USERNAME: '{{ MYSQL_USERNAME }}'
   MYSQL_PASSWORD: '{{ MYSQL_PASSWORD }}'
-  MYSQL_USE_SSL: false
+  MYSQL_USE_SSL: 'false'
   # -----------------------------------Redis specific configuration-----------------------------------
   # REDIS_ENABLED: false
   # REDIS_HOST: "localhost"
@@ -114,4 +113,4 @@ stringData:
   S3_URL: '{{ MINIO_S3_URL }}'
   S3_USERNAME: '{{ S3_USERNAME }}'
   S3_PASSWORD: '{{ S3_PASSWORD }}'
-  S3_BUCKET: raphael
+  S3_BUCKET: 'raphael'
