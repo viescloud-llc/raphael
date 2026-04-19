@@ -20,7 +20,7 @@ spec:
         image: viescloud/raphael
         imagePullPolicy: Always
         ports:
-        - containerPort: 10001
+        - containerPort: 80
         resources:
           limits:
             memory: 2Gi
@@ -32,13 +32,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthCheck
-            port: 10001
+            port: 80
           initialDelaySeconds: 20
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /healthCheck
-            port: 10001
+            port: 80
           initialDelaySeconds: 20
           periodSeconds: 10
   strategy:
@@ -60,8 +60,8 @@ spec:
   selector:
     app: raphael
   ports:
-  - port: 10001
-    targetPort: 10001
+  - port: 80
+    targetPort: 80
     protocol: TCP
   loadBalancerIP: 10.23.3.21
 
@@ -75,7 +75,7 @@ metadata:
     app: raphael
 type: Opaque
 stringData:
-  SERVER_PORT: '10001'
+  SERVER_PORT: '80'
   JWT_SECRET: '{{ JWT_SECRET }}'
   COQUI_TTS_URL: '{{ COQUI_TTS_URL }}'
   OPENAI_TOKEN: '{{ OPENAI_TOKEN }}'
@@ -113,4 +113,4 @@ stringData:
   S3_URL: '{{ MINIO_S3_URL }}'
   S3_USERNAME: '{{ MINIO_S3_USERNAME }}'
   S3_PASSWORD: '{{ MINIO_S3_PASSWORD }}'
-  S3_BUCKET: 'raphael'
+  S3_BUCKET: 'raphael-test'
