@@ -3,15 +3,27 @@ package com.vincent.inc.raphael.config;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.viescloud.eco.viesspringutils.auto.config.ViesApplicationConfig;
+import com.viescloud.eco.viesspringutils.auto.model.authentication.ViesDefaultEndpointEnum;
+
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class BeanConfig {
+    @Bean
+    public ViesApplicationConfig viesApplicationConfig(@Value("${spring.profiles.active:local}") String env) {
+        var config = new ViesApplicationConfig(env, ViesDefaultEndpointEnum.toList());
+        config.setEnabledSecuity(false);
+        return config;
+    }
+
     @Bean
     public CorsWebFilter corsWebFilter() {
         final CorsConfiguration corsConfig = new CorsConfiguration();
