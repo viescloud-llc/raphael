@@ -1,7 +1,7 @@
 <configuration debug="false">
 
     <property name="port" value="12201" />
-    <property name="host" value="10.24.24.2" />
+    <property name="host" value="localhost" />
     <property name="app_name" value="raphael" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -11,7 +11,7 @@
         </encoder>
     </appender>
 
-    <!-- <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
+    <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
         <graylogHost>${host}</graylogHost>
         <graylogPort>${port}</graylogPort>
         <maxChunkSize>508</maxChunkSize>
@@ -32,7 +32,7 @@
             </fullPatternLayout>
             <staticField>app_name:${app_name}</staticField>
         </encoder>
-    </appender> -->
+    </appender>
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />
