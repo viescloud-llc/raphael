@@ -19,6 +19,8 @@ jobs:
     with:
       server_ip: ${{ vars.K8S_MASTER_IPV4 }}
       k8s_path: './k8s'
+      variables_replace: |
+        {{ COQUI_TTS_URL }}=http://coquitts-server-service.coquitts-server:10000
     secrets:
       ssh_username: ${{ secrets.K8S_MASTER_SSH_USERNAME }}
       ssh_password: ${{ secrets.K8S_MASTER_SSH_PASSWORD }}
@@ -26,7 +28,6 @@ jobs:
         {{ JWT_SECRET }}=${{ secrets.JWT_SECRET }}
         {{ MYSQL_IPV4 }}=${{ secrets.MYSQL_IPV4 }}
         {{ MYSQL_PORT }}=${{ secrets.MYSQL_PORT }}
-        {{ COQUI_TTS_URL }}=${{ secrets.COQUI_TTS_URL }}
         {{ MYSQL_USERNAME }}=${{ secrets.MYSQL_USERNAME }}
         {{ MYSQL_PASSWORD }}=${{ secrets.MYSQL_PASSWORD }}
         {{ MINIO_S3_URL }}=${{ secrets.MINIO_S3_URL }}
