@@ -111,6 +111,6 @@ stringData:
   # SMB_SHARE_AND_DIR: Business/data
 
   S3_URL: '{{ MINIO_S3_URL }}'
-  S3_USERNAME: '{{ S3_USERNAME }}'
-  S3_PASSWORD: '{{ S3_PASSWORD }}'
+  S3_USERNAME: '{{ MINIO_S3_USERNAME }}'
+  S3_PASSWORD: '{{ MINIO_S3_PASSWORD }}'
   S3_BUCKET: 'raphael'
