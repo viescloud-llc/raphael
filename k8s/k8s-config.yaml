@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: raphael-deployment
+  namespace: raphael
+  labels:
+    app: raphael
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: raphael
+  template:
+    metadata:
+      labels:
+        app: raphael
+    spec:
+      containers:
+      - name: raphael-deployment
+        image: viescloud/raphael
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 10001
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            memory: 512Mi
+        envFrom:
+        - secretRef:
+            name: raphael-secret
+        livenessProbe:
+          httpGet:
+            path: /healthCheck
+            port: 10001
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthCheck
+            port: 10001
+          initialDelaySeconds: 20
+          periodSeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raphael-service
+  namespace: raphael
+  labels:
+    app: raphael
+spec:
+  type: LoadBalancer
+  selector:
+    app: raphael
+  ports:
+  - port: 10001
+    targetPort: 10001
+    protocol: TCP
+  loadBalancerIP: 10.24.24.175
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: raphael-secret
+  namespace: raphael
+  labels:
+    app: raphael
+type: Opaque
+stringData:
+  SERVER_PORT: 10001
+  JWT_SECRET: '{{ JWT_SECRET }}'
+  COQUI_TTS_URL: '{{ COQUI_TTS_URL }}'
+  OPENAI_TOKEN: '{{ OPENAI_TOKEN }}'
+  H2_CONSOLE_ENABLE: false
+  # ADMIN_CLIENT_ENABLE: false
+  # ADMIN_CLIENT_URL: 'http://localhost:8080'
+  DATABASE_TYPE: mysql  # h2 or h2-memory or mysql
+  OBJECT_STORAGE_TYPE: s3-minio #db or s3-minio or smb
+  # -----------------------------------H2 specific configuration-----------------------------------
+  # H2_DB: '/etc/${spring.application.name}/db/h2'
+  # H2_USERNAME: 'sa'
+  # H2_PASSWORD: 'password'
+  # H2_CONSOLE_ENABLE: true
+  # H2_CONSOLE_PATH: '/h2-console'
+  # -----------------------------------MySQL specific configuration-----------------------------------
+  MYSQL_HOST: '{{ MYSQL_IPV4 }}'
+  MYSQL_PORT: {{ MYSQL_PORT }}
+  MYSQL_DB: 'Raphael'
+  MYSQL_USERNAME: '{{ MYSQL_USERNAME }}'
+  MYSQL_PASSWORD: '{{ MYSQL_PASSWORD }}'
+  MYSQL_USE_SSL: false
+  # -----------------------------------Redis specific configuration-----------------------------------
+  # REDIS_ENABLED: false
+  # REDIS_HOST: "localhost"
+  # REDIS_PORT: 6379
+  # REDIS_USERNAME: 
+  # REDIS_PASSWORD: 
+  # -----------------------------------Object Storage specific configuration-----------------------------------
+  # SMB_HOST: localhost
+  # SMB_PORT: 445
+  # SMB_DOMAIN: domain
+  # SMB_USERNAME: username
+  # SMB_PASSWORD: password
+  # SMB_SHARE_AND_DIR: Business/data
+
+  S3_URL: '{{ MINIO_S3_URL }}'
+  S3_USERNAME: '{{ S3_USERNAME }}'
+  S3_PASSWORD: '{{ S3_PASSWORD }}'
+  S3_BUCKET: raphael

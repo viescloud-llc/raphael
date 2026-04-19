@@ -1,2 +1,6 @@
 spring.application.name: Raphael
+
+CoquiTTS.url: ${COQUI_TTS_URL}
+openai.token: ${OPENAI_TOKEN}
+
 spring.profiles.active: local
