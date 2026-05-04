@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy-basic:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: Viescloud-llc/workflows/.gitea/workflows/k8s-deploy-ssh.yml@main
     with:
       server_ip: ${{ vars.K8S_MASTER_IPV4 }}
